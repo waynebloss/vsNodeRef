@@ -14,7 +14,9 @@ A script reference file is executed by Visual Studio when the file is referenced
 
 ```
 
-References must appear before anything else in the file, even licenses.
+References must appear before anything else in the file, even comments or licenses.
+
+See the sub-directories for further details and demos.
 
 ### More Info
 
