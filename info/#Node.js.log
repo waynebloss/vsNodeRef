@@ -1,0 +1,180 @@
+
+Start of #Node.js buffer: Sun Feb 12 13:49:00 2012
+* Now talking in #Node.js
+* Topic is 'node point javascript http://nodejs.org/api/'
+* Set by isaacs!~isaacs@c-24-130-255-107.hsd1.ca.comcast.net on Sat Feb 
+11 22:29:58
+<wdbl> howdy all. Does anyone know how to disable the REPL printing out 
+  undefined after every statement?
+<maxogden_> wdbl: thats just the P part of REPL (printing the previous 
+  statements return value)
+* maxogden_ is now known as maxogden
+<@isaacs> wdbl: put ;1 at the end of each statement
+<@isaacs> :)
+<@isaacs> i usually do that when i require a big module.
+<@isaacs> fs = require("fs");1
+<wdbl> sweet, thx very much
+<kkaefer> or wrap it in void()
+<wdbl> so @isaacs, do you guys have any ideas about where you'd like to 
+  go with your documentation ideally? I am about to build a little app 
+  to pull documentation from your doc/api/*.markdown files, structure it 
+  (JSON) and then spit out a reference file for visual studio and I'm 
+  just wondering if you guys have thought about attaching the 
+  documentation directly to the code at some point?
+<wdbl> like JSDoc or something like that.
+<wdbl> (actually, my process will have to be a little more complicated 
+  than that because I need to have documentation associated with each 
+  parameter so I'll have to merge what I pull out of markdown into a 
+  pre-existing structure.)
+<@isaacs> wdbl: please provide feedback on the progress here: 
+  http://github.com/isaacs/node/tree/json-api-docs/ 
+<@isaacs> wdbl: i'm uploading work-in-progress doc output to here: 
+  http://static.izs.me/json-api/
+<pi_> Hello! I'am build node.js on a linux system, everything goes well 
+  until sudo make install throws several syntax errors! 
+<@isaacs> wdbl: the idea is to minimally structure the markdown, and 
+  then have a parser that can turn that into html (pretty easy) and json 
+  (more complicated
+<wdbl> isaacs: ok. I see the basic format of the markdown file (#### 
+  functionName(params)\nDescription
+* scoates_ is now known as scoates
+<@isaacs> wdbl: the only addition, really, is that the heading structure 
+  is stricter, and adds a UL for arguments/return values 
+<@isaacs> wdbl: and a <pre> for the stability indicators, meanings here: 
+  https://gist.github.com/1776425#comments
+<wdbl> isaacs: okay, that's what I was looking for
+<@isaacs> wdbl: this is very much a work in progress. we have to end up 
+  at jquery-style api json references, because that's what everyone 
+  already supports.
+<wdbl> isaacs: where can I see your usage of the extended header style 
+  you talked about, or a spec document for it?
+<@isaacs> wdbl: but the specifics of how to get tehre is not 100% 
+  finalized.  i *do* want to stick with something fairly easy for 
+  newcomers to pick up by reading (who probably know markdown, but maybe 
+  not our custom whizbangs)
+<djazz> testdrive, anyone? https://plus.google.com/100598160817214911030
+  /posts/7QULJTntKG1
+<wdbl> if no spec document, I'll just save this chat for now :)
+<pi_> You can checkout the errors http://pastebin.com/T4sehzfw
+<@isaacs> wdbl: https://github.com/isaacs/node/tree/json-api-docs/tools/
+  doc
+<@isaacs> wdbl: that's the tool i'm using.
+<ningu> just curious, the single-threadedness of node seems to be a big 
+  selling point and also a commonly mentioned negative (messy code 
+  etc.)... I can see the negative of messy code but what's the positive 
+  of being single threaded? more predictable, no locking, etc.? or is 
+  there more to it than that?
+<@isaacs> wdbl: basically, it's plain old semantic html.  don't put an 
+  h4 under an h2 without a h3 in there.
+<maxogden> ningu: messy code is written by messy developers :D
+<ningu> maxogden: yes, but I'd say it takes a bit more effort to write 
+  good code than for some frameworks I've seen
+<ningu> not that it can't be done
+<djazz> robots + node.js :)
+<wdbl> isaacs: that looks good
+<wdbl> isaacs: thx a lot
+<@isaacs> wdbl: also, need to update the "volatility levels" to be 
+  "Stability levels" in the readme there
+<@isaacs> wdbl: i'm serious, though, if you think this doc structure is 
+  problematic, i'm all hears.
+<@isaacs> *all ears
+<ningu> ears are what hear
+<@isaacs> please share opinions, especially things that might block you 
+  from contributing.
+<ningu> but eyes do not heye
+<@isaacs> :)
+<ningu> isaacs: actually, your presentation on slide was what got me 
+  thinking about single-threaded vs. multithreaded tradeoffs... is the 
+  async module a newer thing or did you write yours in spite of it? :)
+<@isaacs> ningu: slide predates async
+<@isaacs> ningu: i think
+<@isaacs> at least, it predates me hearing about it :)
+<@isaacs> async is a bit like underscore.  it's great if you need a lot 
+  of what it offers, but it does a lot.
+<ningu> yeah, underscore looks like a bit much for just one helper
+<ningu> btw any suggestions for reading about promises, since they seem 
+  to come up a lot?
+<ningu> I can't tell when people do new Promise if there's a single 
+  standard impl or what
+<ningu> and the semantics of it confuses me
+<@isaacs> ningu: the goal of the slide presentation was to get *you* to 
+  write your *own* helper functions for this stuff.
+<@isaacs> ningu: not to get you to use slide, per se
+<@isaacs> though, if you find it useful, then that's fine, of course
+<ningu> isaacs: I know
+<@isaacs> it's powerful to know how it works, so you can whip up a 
+  little 10-line asyncForEach thingie when you need it.
+<ningu> well, understanding the concept and getting the actual code 
+  right is a big difference
+<ningu> which is why I'd rather work with existing implementations for 
+  now
+<ningu> there are a lot of design factors in making the patterns work in 
+  practice
+<@isaacs> ningu: it's not so complex, really
+<@isaacs> ningu: just call the cb when yoer' done :)
+<ningu> the cb?
+<ningu> oh, the callback
+<ningu> anyway, yes, that makes sense to me, it's nested contexts and 
+  deferred execution that I find hard -- not necessarily in principle 
+  but it takes time to work through what a given piece of code is 
+  actually doing
+<ningu> e.g. https://github.com/LearnBoost/express-mongoose/blob/master/
+  index.js
+<ningu> the code is relatively simple in what it does but I didn't find 
+  it a quick read
+<teslan> surely i can have folders like this ... var server = 
+  require("./mydir/server"); ... but ... node ./mydir/index.js is 
+  throwing errror ... Can not find module './mydir/server'
+<ningu> teslan: because the path is relative to the file that is 
+  require'ing
+<ningu> try require('./server')
+<teslan> ningu: thanks a million
+<ningu> that's actually something I want to know, if you can easily 
+  specify a require from the root of your app
+<teslan> ningu: it would be nice if node had a startup param for 
+  specifying home dir for require or something like that ?
+<ningu> teslan: yes, but it's easy to do yourself, the issue though is 
+  there might be ambiguity if anything in your app is named the same as 
+  a package
+<ningu> but e.g. I have db.js at the root of my app and it's kind of 
+  annoying to have to require('./db') sometimes and require('../db') 
+  other times
+<kvey> might consider using a node_modules folder and just require('db') 
+  ?
+<ningu> hmm
+<teslan> ningu: so if we have myapp/my_files_*.js then we can always use 
+  ../whatever
+<ningu> kvey: yeah, that's a pretty good idea -- that way I can only 
+  move in the ones there that I need to
+<teslan> kvey: are you inadvertently saying that my mistake is that 
+  mydir should be in node_modules and not beside it?
+<ningu> or I could make another dir like app_modules
+<ningu> and add that to the path
+<kvey> teslan: not necessarily a mistake, but it might solve your 
+  problem as well I suppose
+<teslan> ningu: what path does node use ... where would you add 
+  app_modules ... keeping in mind same needs to run remotely, like on 
+  heroku
+<kvey> if ./mydir is beside it and server.js is within that 
+  ./mydir/server.js really should work fine
+<ningu> huh. apparently you can't modify require.paths anymore.
+<teslan> my truble was that ./mydir/index.js was requiring 
+  ./mydir/server and it should have been ../mydir...
+<ningu> teslan: why not just ./server?
+<teslan> ningu: yes you are correct
+<hgggg> hi, i have this async.forEach(documents, _getDetails, function 
+  (err) {
+<hgggg>                 console.log('finishhhh');
+<hgggg>                 });
+<hgggg> the problem is that in _getDetails i have like request1({ 
+  request2{}})
+* NuckOff is now known as Nuck
+<TheJH> hgggg, call back from the innermost callback
+<hgggg> how can i control this? seems like async never finish
+<hgggg> in this case
+<hgggg> hm? i'm not a pro, waht do you mean?
+<gigafied> isaacs: So  I found an interesting feature(?) in npm last 
+  night. If you do npm install --registry=null when a module is cached, 
+  it installs successfully from the cache, without ever hitting the 
+  registry at all
+End of #Node.js buffer    Sun Feb 12 13:49:00 2012

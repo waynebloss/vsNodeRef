@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vsNodeRef", "vsNodeRef.csproj", "{40BDBF5A-F553-4251-818E-943E65B52E3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76D2BAA3-FA84-4B15-9AF9-F250AE70F0C5}"
+	ProjectSection(SolutionItems) = preProject
+		..\Readme.md = ..\Readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40BDBF5A-F553-4251-818E-943E65B52E3E}.Debug|x86.ActiveCfg = Debug|x86
+		{40BDBF5A-F553-4251-818E-943E65B52E3E}.Debug|x86.Build.0 = Debug|x86
+		{40BDBF5A-F553-4251-818E-943E65B52E3E}.Release|x86.ActiveCfg = Release|x86
+		{40BDBF5A-F553-4251-818E-943E65B52E3E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
