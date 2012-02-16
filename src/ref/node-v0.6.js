@@ -293,6 +293,6 @@ global.process = (function() {
 	return new Process();
 })();
 
-// ### Node.js Global Variables
+// ### Global Variables Cont'd.
 
 var process = global.process;
