@@ -51,7 +51,6 @@ var global = (function() {
 
 var __dirname = global.__dirname;
 var __filename = global.__filename;
-var Buffer = global.Buffer;
 var cache = global.cache;
 var console = global.console;
 var exports = global.exports;
@@ -358,3 +357,40 @@ global.vsdoc('assert', function() {
 
 	return _assert;
 });
+
+global.vsdoc('buffer', function() {
+
+	function Buffer(sizeOrArrayOrString, encoding, offset) {
+		/// <summary>A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap. A Buffer cannot be resized.</summary>
+		/// <param name="sizeOrArrayOrString">If numeric (size), allocates a new buffer of size octets. If Array or String, allocates a new buffer using an array of octets or string.</param>
+		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Default value is 'utf8'. Used if first argument is a string.</param>
+		/// <param name="offset">Numeric offset into the source sizeOrArrayOrString.</param>
+		/// <field name="indexer">e.g. buffer[index] - Get and set the octet at index. The values refer to individual bytes, so the legal range is between 0x00 and 0xFF hex or 0 and 255.</field>
+	}
+	Buffer.isBuffer = function(obj) {
+		/// <summary>Tests if obj is a Buffer.</summary>
+		/// <returns>True, if obj is a Buffer.</returns>
+		return false;
+	};
+	Buffer.prototype.write = function(string, offset, length, encoding) {
+		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
+		/// <param name="string"></param>
+		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
+		return 0;
+	};
+	Buffer.prototype.toString = function(encoding, start, end) {
+		/// <summary>Decodes and returns a string from buffer data encoded with encoding (defaults to 'utf8') beginning at start (defaults to 0) and ending at end (defaults to buffer.length).</summary>
+		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <returns type="String">A string.</returns>
+		return "";
+	};
+
+	return Buffer;
+});
+
+var Buffer = require('buffer');
