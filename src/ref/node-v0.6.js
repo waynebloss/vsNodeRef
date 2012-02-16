@@ -85,7 +85,7 @@ global.vsdoc('events', function() {
 	};
 	EventEmitter.prototype.on = function(event, listener) {
 		/// <summary>Adds a listener to the end of the listeners array for the specified event.
-		/// <para>newListener: This event is emitted any time someone adds a new listener.</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
 		/// </summary>
 		/// <param name="event">Name of the event.</param>
 		/// <param name="listener">Function that is called upon the event.</param>
@@ -198,20 +198,71 @@ global.vsdoc('util', function() {
 		/// <summary>Writes the given arguments to stdout.</summary>
 		/// <param name="argsN">(Optional) Arguments to write to stdout.</param>
 	};
+
 	return new Util();
 });
 
 global.vsdoc('stream', function() {
 
+	var EventEmitter = require('events').EventEmitter;
+	var util = require('util');
+
 	function Stream() {
-		/// <summary>The stream class.</summary>
+		/// <summary>A stream is an abstract interface implemented by various objects in Node. For example a request to an HTTP server is a stream, as is stdout. Streams are readable, writable, or both. All streams are instances of EventEmitter.</summary>
 		/// <field name="readable">A boolean that is true by default, but turns false after an 'error' occurred, the stream came to an 'end', or destroy() was called.</field>
+		/// <field name="writable">A boolean that is true by default, but turns false after an 'error' occurred or end() / destroy() was called.</field>
 		this.readable = true;
+		this.writable = true;
 	}
+	Stream.prototype.destroy = function(callback) {
+		/// <summary>Closes the underlying file descriptor. Stream will not emit any more events. Any queued write data will not be sent.</summary>
+		/// <param name="callback" type="Function">Error callback function.</param>
+	};
+	Stream.prototype.destroySoon = function() {
+		/// <summary>After the write queue is drained, close the file descriptor. After the write queue is drained, close the file descriptor. destroySoon() can still destroy straight away, as long as there is no data left in the queue for writes.</summary>
+	};
+	Stream.prototype.pause = function() {
+		/// <summary>Pauses the incoming 'data' events.</summary>
+	};
+	Stream.prototype.resume = function() {
+		/// <summary>Resumes the incoming 'data' events after a pause.</summary>
+	};
 	Stream.prototype.setEncoding = function(encoding) {
 		/// <summary>Makes the data event emit a string instead of a Buffer. encoding can be 'utf8', 'ascii', or 'base64'.</summary>
 		/// <param name="encoding">One of 'utf8', 'ascii', or 'base64'.</param>
+	};
+	Stream.prototype.pipe = function(destination, options) {
+		/// <summary>Connects this read stream to destination WriteStream. Incoming data on this stream gets written to destination. The destination and source streams are kept in sync by pausing and resuming as necessary.</summary>
+		/// <returns type="Stream" />
 		return this;
+	};
+	Stream.prototype.write = function(stringOrBuffer, encoding, fd, callback) {
+		/// <summary>Writes to the stream. Returns true if the string has been flushed to the kernel buffer. Returns false to indicate that the kernel buffer is full, and the data will be sent out in the future. The 'drain' event will indicate when the kernel buffer is empty again.</summary>
+		/// <param name="stringOrBuffer">A string or a buffer. If a string, the given encoding is applied.</param>
+		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <param name="fd">(Optional) Interpreted as an integral file descriptor to be sent over the stream. This is only supported for UNIX streams, and is silently ignored otherwise. When writing a file descriptor in this manner, closing the descriptor before the stream drains risks sending an invalid (closed) FD.</param>
+		/// <param name="callback" type="Function">Callback function(err, data).</param>
+		return false;
+	};
+	Stream.prototype.end = function(stringOrBuffer, encoding, callback) {
+		/// <summary>Terminates the stream with EOF or FIN. This call will allow queued write data to be sent before closing the stream.</summary>
+		/// <param name="stringOrBuffer">(Optional) Data to send before the EOF or FIN termination. This is useful to reduce the number of packets sent.</param>
+		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Required if first argument is a string.</param>
+		/// <param name="callback" type="Function">(Optional) Callback function(err, data).</param>
+	};
+	util.inherits(Stream, EventEmitter);
+	Stream.prototype.on = function(event, listener) {
+		/// <summary>Adds a listener to the end of the listeners array for the specified event.
+		/// <para>close(): Emitted when the underlying file descriptor has been closed. Not all streams will emit this.</para>
+		/// <para>data(data): Emits either a Buffer (by default) or a string if setEncoding() was used.</para>
+		/// <para>drain(): After a write() method returned false, this event is emitted to indicate that it is safe to write again.</para>
+		/// <para>end(): Emitted when the stream has received an EOF (FIN in TCP terminology). Indicates that no more 'data' events will happen. If the stream is also writable, it may be possible to continue writing.</para>
+		/// <para>error(exception): Emitted if there was an error.</para>
+		/// <para>pipe(src): Emitted when the stream is passed to a readable stream's pipe method.</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
+		/// </summary>
+		/// <param name="event">Name of the event.</param>
+		/// <param name="listener">Function that is called upon the event.</param>
 	};
 
 	return Stream;
@@ -231,8 +282,8 @@ global.process = (function() {
 	util.inherits(Process, EventEmitter);
 	Process.prototype.on = function(event, listener) {
 		/// <summary>Adds a listener to the end of the listeners array for the specified event.
-		/// <para>exit: Emitted when the process is about to exit.</para>
-		/// <para>newListener: This event is emitted any time someone adds a new listener.</para>
+		/// <para>exit(): Emitted when the process is about to exit.</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
 		/// </summary>
 		/// <param name="event">Name of the event.</param>
 		/// <param name="listener">Function that is called upon the event.</param>
