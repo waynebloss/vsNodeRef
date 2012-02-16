@@ -120,6 +120,50 @@ global.vsdoc('util', function() {
 	function Util() {
 		/// <summary>Standard Utilities Library.</summary>
 	}
+	Util.prototype.debug = function(message) {
+		/// <summary>A synchronous output function. Will block the process and output the given message immediately to stderr.</summary>
+		/// <param name="message">The message to output to stderr.</param>
+		return this;
+	};
+	Util.prototype.error = function(argsN) {
+		/// <summary>Writes the arguments to stderr, appending a newline to each one.</summary>
+		/// <param name="argsN">(Optional) Arguments to write to stderr.</param>
+	};
+	Util.prototype.format = function(template, argsN) {
+		/// <summary>Returns a formatted string using the first argument as a printf-like format.</summary>
+		/// <param name="template">A string that contains zero or more placeholders.</param>
+		/// <param name="argsN">(Optional) One or more arguments that are applied to a placeholder.</param>
+		return "";
+	};
+	Util.prototype.inspect = function(object, showHidden, dept, colors) {
+		/// <summary>Return a string representation of object which is useful for debugging.</summary>
+		/// <param name="object">The object to inspect.</param>
+		/// <param name="showHidden">If showHidden is true, then the object's non-enumerable properties will be shown too. Defaults to false.</param>
+		/// <param name="depth">If depth is provided, it tells inspect how many times to recurse while formatting the object. This is useful for inspecting large complicated objects.
+		/// The default is to only recurse twice. To make it recurse indefinitely, pass in null for depth.</param>
+		/// <param name="colors">If colors is true, the output will be styled with ANSI color codes. Defaults to false.</param>
+		return {};
+	};
+	Util.prototype.isArray = function(object) {
+		/// <summary>Returns true if the given "object" is an Array. false otherwise.</summary>
+		/// <param name="object">The object to check.</param>
+		return true;
+	};
+	Util.prototype.isDate = function(object) {
+		/// <summary>Returns true if the given "object" is a Date. false otherwise.</summary>
+		/// <param name="object">The object to check.</param>
+		return true;
+	};
+	Util.prototype.isError = function(object) {
+		/// <summary>Returns true if the given "object" is an Error. false otherwise.</summary>
+		/// <param name="object">The object to check.</param>
+		return true;
+	};
+	Util.prototype.isRegExp = function(object) {
+		/// <summary>Returns true if the given "object" is a RegExp. false otherwise.</summary>
+		/// <param name="object">The object to check.</param>
+		return true;
+	};
 	Util.prototype.inherits = function(ctor, superCtor) {
 		/// <summary>Inherit the prototype methods from one constructor into another. The prototype of constructor will be set to a new object created from superConstructor.</summary>
 		/// <param name="ctor">The constructor to modify.</param>
@@ -131,8 +175,29 @@ global.vsdoc('util', function() {
 		for (var member in superCtor.prototype) {
 			ctor.prototype[member] = superCtor.prototype[member];
 		}
-	};
 
+		return ctor;
+	};
+	Util.prototype.log = function(message) {
+		/// <summary>Output with timestamp on stdout.</summary>
+		/// <param name="message">The message to output.</param>
+		return this;
+	};
+	Util.prototype.pump = function(readableStream, writableStream, callback) {
+		/// <summary>(Experimental) Read the data from readableStream and send it to the writableStream. When writableStream.write(data) returns false readableStream will be paused until the drain event occurs on the writableStream. callback gets an error as its only argument and is called when writableStream is closed or when an error occurs.</summary>
+		/// <param name="readableStream">The stream to read from.</param>
+		/// <param name="writableStream">The stream to write to.</param>
+		/// <param name="callback" type="Function">(Optional) Called with an error as its only argument and is called when writableStream is closed or when an error occurs.</param>
+		return this;
+	};
+	Util.prototype.puts = function(argsN) {
+		/// <summary>Writes each argument to stdout, appending a newline to each one.</summary>
+		/// <param name="argsN">(Optional) Arguments to write to stdout.</param>
+	};
+	Util.prototype.print = function(argsN) {
+		/// <summary>Writes the given arguments to stdout.</summary>
+		/// <param name="argsN">(Optional) Arguments to write to stdout.</param>
+	};
 	return new Util();
 });
 

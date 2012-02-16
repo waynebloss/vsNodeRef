@@ -16,3 +16,4 @@ var tm = require('testMod');
 // process.
 // tm.
 
+var util = require('util');
