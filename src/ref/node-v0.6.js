@@ -312,10 +312,49 @@ global.vsdoc('assert', function() {
 		/// <summary>Throws an exception that displays the values for actual and expected separated by the provided operator.</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">Failure message.</param>
-		/// <param name="operator">Operator being used.</param>
-		/// <param name="stackStartFunction">Function where the stack starts.</param>
+		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="operator">(Optional) Operator being used.</param>
+		/// <param name="stackStartFunction">(Optional) Function where the stack starts.</param>
 	};
+	_assert.notEqual = function(actual, expected, message) {
+		/// <summary>Tests shallow, coercive non-equality with the not equal comparison operator ( != ).</summary>
+		/// <param name="actual">Actual value.</param>
+		/// <param name="expected">Expected value.</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert.deepEqual = function(actual, expected, message) {
+		/// <summary>Tests for deep equality.</summary>
+		/// <param name="actual">Actual value.</param>
+		/// <param name="expected">Expected value.</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert.notDeepEqual = function(actual, expected, message) {
+		/// <summary>Tests for any deep inequality.</summary>
+		/// <param name="actual">Actual value.</param>
+		/// <param name="expected">Expected value.</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert.strictEqual = function(actual, expected, message) {
+		/// <summary>Tests strict equality, as determined by the strict equality operator ( === ).</summary>
+		/// <param name="actual">Actual value.</param>
+		/// <param name="expected">Expected value.</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert['throws'] = function(block, error, message) {
+		/// <summary>Expects block to throw an error.</summary>
+		/// <param name="block">The block of code or function.</param>
+		/// <param name="error">Constructor, regexp or validation function(err).</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert.doesNotThrow = function(block, error, message) {
+		/// <summary>Expects block not to throw an error, see assert.throws for details.</summary>
+		/// <param name="block">The block of code or function.</param>
+		/// <param name="error">Constructor, regexp or validation function(err).</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert.ifError = function(value) {
+		/// <summary>Tests if value is not a false value, throws if it is a true value. Useful when testing the first argument, error in callbacks.</summary>
+	}
 
 	return _assert;
 });
