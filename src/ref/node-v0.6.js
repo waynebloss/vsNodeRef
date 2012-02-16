@@ -107,9 +107,8 @@ global.vsdoc('events', function() {
 	};
 	EventEmitter.prototype.setMaxListeners = function(n) {
 		/// <summary>By default EventEmitters will print a warning if more than 10 listeners are added for a particular event. This is a useful default which helps finding memory leaks. Obviously not all Emitters should be limited to 10. This function allows that to be increased. Set to zero for unlimited.</summary>
-		/// <param name="n" type="Number" integer="true">The maximum number to set.</param>
+		/// <param name="n">The maximum number to set.</param>
 	};
-
 	return {
 		EventEmitter: EventEmitter
 	};
@@ -187,7 +186,7 @@ global.vsdoc('util', function() {
 		/// <summary>(Experimental) Read the data from readableStream and send it to the writableStream. When writableStream.write(data) returns false readableStream will be paused until the drain event occurs on the writableStream. callback gets an error as its only argument and is called when writableStream is closed or when an error occurs.</summary>
 		/// <param name="readableStream">The stream to read from.</param>
 		/// <param name="writableStream">The stream to write to.</param>
-		/// <param name="callback" type="Function">(Optional) Called with an error as its only argument and is called when writableStream is closed or when an error occurs.</param>
+		/// <param name="callback">(Optional) Called with an error as its only argument and is called when writableStream is closed or when an error occurs.</param>
 		return this;
 	};
 	Util.prototype.puts = function(argsN) {
@@ -216,7 +215,7 @@ global.vsdoc('stream', function() {
 	}
 	Stream.prototype.destroy = function(callback) {
 		/// <summary>Closes the underlying file descriptor. Stream will not emit any more events. Any queued write data will not be sent.</summary>
-		/// <param name="callback" type="Function">Error callback function.</param>
+		/// <param name="callback">Error callback function.</param>
 	};
 	Stream.prototype.destroySoon = function() {
 		/// <summary>After the write queue is drained, close the file descriptor. After the write queue is drained, close the file descriptor. destroySoon() can still destroy straight away, as long as there is no data left in the queue for writes.</summary>
@@ -241,14 +240,14 @@ global.vsdoc('stream', function() {
 		/// <param name="stringOrBuffer">A string or a buffer. If a string, the given encoding is applied.</param>
 		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
 		/// <param name="fd">(Optional) Interpreted as an integral file descriptor to be sent over the stream. This is only supported for UNIX streams, and is silently ignored otherwise. When writing a file descriptor in this manner, closing the descriptor before the stream drains risks sending an invalid (closed) FD.</param>
-		/// <param name="callback" type="Function">Callback function(err, data).</param>
+		/// <param name="callback">Callback function(err, data).</param>
 		return false;
 	};
 	Stream.prototype.end = function(stringOrBuffer, encoding, callback) {
 		/// <summary>Terminates the stream with EOF or FIN. This call will allow queued write data to be sent before closing the stream.</summary>
 		/// <param name="stringOrBuffer">(Optional) Data to send before the EOF or FIN termination. This is useful to reduce the number of packets sent.</param>
 		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Required if first argument is a string.</param>
-		/// <param name="callback" type="Function">(Optional) Callback function(err, data).</param>
+		/// <param name="callback">(Optional) Callback function(err, data).</param>
 	};
 	util.inherits(Stream, EventEmitter);
 	Stream.prototype.on = function(event, listener) {
@@ -269,7 +268,7 @@ global.vsdoc('stream', function() {
 });
 
 global.process = (function() {
-	
+
 	var EventEmitter = require('events').EventEmitter;
 	var util = require('util');
 
@@ -295,3 +294,28 @@ global.process = (function() {
 
 var process = global.process;
 
+global.vsdoc('assert', function() {
+
+	function _assert(value, message) {
+		/// <summary>Tests if value is a true value, it is equivalent to assert.equal(true, value, message);</summary>
+		/// <param name="value">The value to test.</param>
+		/// <param name="message">Failure message.</param>
+	}
+	_assert.ok = _assert;
+	_assert.equal = function(actual, expected, message) {
+		/// <summary>Tests shallow, coercive equality with the equal comparison operator ( == ).</summary>
+		/// <param name="actual">Actual value.</param>
+		/// <param name="expected">Expected value.</param>
+		/// <param name="message">(Optional) Failure message.</param>
+	};
+	_assert.fail = function(actual, expected, message, operator, stackStartFunction) {
+		/// <summary>Throws an exception that displays the values for actual and expected separated by the provided operator.</summary>
+		/// <param name="actual">Actual value.</param>
+		/// <param name="expected">Expected value.</param>
+		/// <param name="message">Failure message.</param>
+		/// <param name="operator">Operator being used.</param>
+		/// <param name="stackStartFunction">Function where the stack starts.</param>
+	};
+
+	return _assert;
+});
