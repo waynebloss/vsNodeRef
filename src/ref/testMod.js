@@ -1,6 +1,6 @@
 ﻿/// <reference path="node-v0.6.js"/>
 
-global.vsdoc('testMod', function () {
+global.vsdoc('testMod', function() {
 
 	function TestMod(arg1) {
 		/// <summary>Creates a new TestMod.</summary>
@@ -8,7 +8,7 @@ global.vsdoc('testMod', function () {
 		/// <field name="count">Count of something.</field>
 		this.count = 0;
 	}
-	TestMod.prototype.testMethod = function (testName) {
+	TestMod.prototype.testMethod = function(testName) {
 		/// <summary>Does a test.</summary>
 		/// <param name="testName">Name of the test to do.</param>
 		return this;

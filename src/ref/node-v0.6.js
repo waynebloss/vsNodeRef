@@ -361,36 +361,343 @@ global.vsdoc('assert', function() {
 global.vsdoc('buffer', function() {
 
 	function Buffer(sizeOrArrayOrString, encoding, offset) {
-		/// <summary>A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap. A Buffer cannot be resized.</summary>
+		/// <summary>A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap. A Buffer cannot be resized.
+		/// <para>buffer[index]: Get and set the octet at index. The values refer to individual bytes, so the legal range is between 0x00 and 0xFF hex or 0 and 255.</para>
+		/// <para>Buffer.INSPECT_MAX_BYTES: How many bytes will be returned when buffer.inspect() is called. This can be overridden by user modules.</para>
+		/// <para>Buffer.poolSize: Size of the buffer pool.</para></summary>
 		/// <param name="sizeOrArrayOrString">If numeric (size), allocates a new buffer of size octets. If Array or String, allocates a new buffer using an array of octets or string.</param>
-		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Default value is 'utf8'. Used if first argument is a string.</param>
-		/// <param name="offset">Numeric offset into the source sizeOrArrayOrString.</param>
-		/// <field name="indexer">e.g. buffer[index] - Get and set the octet at index. The values refer to individual bytes, so the legal range is between 0x00 and 0xFF hex or 0 and 255.</field>
+		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Default value is 'utf8'. Used if first argument is a string.</param>
+		/// <param name="offset">(Optional) Numeric offset into the source sizeOrArrayOrString.</param>
+		/// <field name="length">The size of the buffer in bytes. Note that this is not necessarily the size of the contents. length refers to the amount of memory allocated for the buffer object. It does not change when the contents of the buffer are changed.</field>
+		this.length = 0;
 	}
 	Buffer.isBuffer = function(obj) {
 		/// <summary>Tests if obj is a Buffer.</summary>
+		/// <param name="obj">The object to test.</param>
 		/// <returns>True, if obj is a Buffer.</returns>
 		return false;
 	};
+	Buffer.byteLength = function(string, encoding) {
+		/// <summary>Gives the actual byte length of a string. This is not the same as String.prototype.length since that returns the number of characters in a string.</summary>
+		/// <param name="string">The string to analyze.</param>
+		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
+		/// <returns type="Number" integer="true">The actualy byte length of the string.</returns>
+		return 0;
+	};
+	Buffer.poolSize = 8 * 1024;
+	Buffer.INSPECT_MAX_BYTES = 50;
 	Buffer.prototype.write = function(string, offset, length, encoding) {
 		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
 		/// <param name="string"></param>
 		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
 		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
-		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
 		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
 		return 0;
 	};
 	Buffer.prototype.toString = function(encoding, start, end) {
 		/// <summary>Decodes and returns a string from buffer data encoded with encoding (defaults to 'utf8') beginning at start (defaults to 0) and ending at end (defaults to buffer.length).</summary>
-		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
 		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
 		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="String">A string.</returns>
 		return "";
 	};
-
-	return Buffer;
+	Buffer.prototype.fill = function(value, offset, end) {
+		/// <summary>Fills the buffer with the specified value. If the offset and end are not given it will fill the entire buffer.</summary>
+		/// <param name="value">Description</param>
+		/// <param name="offset">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <returns type="Number" integer="true">The number of bytes filled.</returns>
+		return 0;
+	};
+	Buffer.prototype.copy = function(target, target_start, start, end) {
+		/// <summary>Does copy between buffers. The source and target regions can be overlapped.</summary>
+		/// <param name="target">The target buffer.</param>
+		/// <param name="target_start">(Optional) Index to start at in the target buffer. Defaults to zero.</param>
+		/// <param name="start">(Optional) Index to start at in the source buffer. Defaults to zero.</param>
+		/// <param name="target_end">(Optional) Index to end at in the source buffer. Defaults to buffer.length.</param>
+		/// <returns type="Buffer">A new buffer.</returns>
+		return new Buffer('');
+	};
+	Buffer.prototype.slice = function(start, end) {
+		/// <summary>Returns a new buffer which references the same memory as the old, but offset and cropped by the start (defaults to 0) and end (defaults to buffer.length) indexes.
+		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
+		/// </summary>
+		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <returns type="Buffer">A new buffer.</returns>
+		return new Buffer('');
+	};
+	Buffer.prototype.utf8Slice = function(start, end) {
+		/// <summary>Returns a new buffer which references the same memory as the old, but offset and cropped by the start (defaults to 0) and end (defaults to buffer.length) indexes.
+		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
+		///     <para>WARNING: Legacy method for backwards compatibility.</para>
+		/// </summary>
+		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <returns type="Buffer">A new buffer.</returns>
+		return this.toString('utf8', start, end);
+	};
+	Buffer.prototype.binarySlice = function(start, end) {
+		/// <summary>Returns a new buffer which references the same memory as the old, but offset and cropped by the start (defaults to 0) and end (defaults to buffer.length) indexes.
+		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
+		///     <para>WARNING: Legacy method for backwards compatibility.</para>
+		/// </summary>
+		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <returns type="Buffer">A new buffer.</returns>
+		return this.toString('binary', start, end);
+	};
+	Buffer.prototype.asciiSlice = function(start, end) {
+		/// <summary>Returns a new buffer which references the same memory as the old, but offset and cropped by the start (defaults to 0) and end (defaults to buffer.length) indexes.
+		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
+		///     <para>WARNING: Legacy method for backwards compatibility.</para>
+		/// </summary>
+		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <returns type="Buffer">A new buffer.</returns>
+		return this.toString('ascii', start, end);
+	};
+	Buffer.prototype.utf8Write = function(string, offset) {
+		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
+		/// <param name="string"></param>
+		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
+		return this.write(string, offset, 'utf8');
+	};
+	Buffer.prototype.binaryWrite = function(string, offset) {
+		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
+		/// <param name="string"></param>
+		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
+		return this.write(string, offset, 'binary');
+	};
+	Buffer.prototype.asciiWrite = function(string, offset) {
+		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
+		/// <param name="string"></param>
+		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
+		return this.write(string, offset, 'ascii');
+	};
+	Buffer.prototype.readUInt8 = function(offset, noAssert) {
+		/// <summary>Reads an unsigned 8 bit integer from the buffer at the specified offset.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+	};
+	Buffer.prototype.readUInt16LE = function(offset, noAssert) {
+		/// <summary>Reads an unsigned 16 bit integer from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readUInt16BE = function(offset, noAssert) {
+		/// <summary>Reads an unsigned 16 bit integer from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readUInt32LE = function(offset, noAssert) {
+		/// <summary>Reads an unsigned 32 bit integer from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readUInt32BE = function(offset, noAssert) {
+		/// <summary>Reads an unsigned 32 bit integer from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readInt8 = function(offset, noAssert) {
+		/// <summary>Reads a signed 8 bit integer from the buffer at the specified offset. Works as buffer.readUInt8, except buffer contents are treated as two's complement signed values.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readInt16LE = function(offset, noAssert) {
+		/// <summary>Reads a signed 16 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt16*, except buffer contents are treated as two's complement signed values.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readInt16BE = function(offset, noAssert) {
+		/// <summary>Reads a signed 16 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt16*, except buffer contents are treated as two's complement signed values.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readInt32LE = function(offset, noAssert) {
+		/// <summary>Reads a signed 32 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt32*, except buffer contents are treated as two's complement signed values.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readInt32BE = function(offset, noAssert) {
+		/// <summary>Reads a signed 32 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt32*, except buffer contents are treated as two's complement signed values.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readFloatLE = function(offset, noAssert) {
+		/// <summary>Reads a 32 bit float from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readFloatBE = function(offset, noAssert) {
+		/// <summary>Reads a 32 bit float from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readDoubleLE = function(offset, noAssert) {
+		/// <summary>Reads a 64 bit double from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.readDoubleBE = function(offset, noAssert) {
+		/// <summary>Reads a 64 bit double from the buffer at the specified offset with specified endian format.</summary>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <returns type="Number">The number read from the buffer.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeUInt8 = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset. Note, value must be a valid unsigned 8 bit integer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeUInt16LE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeUInt16BE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeUInt32LE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 32 bit integer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeUInt32BE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 32 bit integer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeInt8 = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset. Note, value must be a valid signed 8 bit integer. Works as buffer.writeUInt8, except value is written out as a two's complement signed integer into buffer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeInt16LE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 16 bit integer. Works as buffer.writeUInt16*, except value is written out as a two's complement signed integer into buffer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeInt16BE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 16 bit integer. Works as buffer.writeUInt16*, except value is written out as a two's complement signed integer into buffer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeInt32LE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 32 bit integer. Works as buffer.writeUInt32*, except value is written out as a two's complement signed integer into buffer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeInt32BE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 32 bit integer. Works as buffer.writeUInt32*, except value is written out as a two's complement signed integer into buffer.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeFloatLE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 32 bit float.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeFloatBE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 32 bit float.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeDoubleLE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 64 bit double.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	Buffer.prototype.writeDoubleBE = function(value, offset, noAssert) {
+		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 64 bit double.</summary>
+		/// <param name="value">The value to write.</param>
+		/// <param name="offset">Index to start at.</param>
+		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <returns>The number of bytes written.</returns>
+		return 0;
+	};
+	
+	return {
+		Buffer: Buffer,
+		INSPECT_MAX_BYTES: 50,
+		SlowBuffer: Buffer
+	};
 });
 
-var Buffer = require('buffer');
+var Buffer = require('buffer').Buffer;
