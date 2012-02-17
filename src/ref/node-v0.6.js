@@ -76,7 +76,7 @@ global.vsdoc('events', function() {
 	EventEmitter.prototype.emit = function(event, args) {
 		/// <summary>Execute each of the listeners in order with the supplied arguments.</summary>
 		/// <param name="event">Name of the event.</param>
-		/// <param name="args" mayBeNull="true">(optional) One or more arguments to pass to the event handlers.</param>
+		/// <param name="args" mayBeNull="true" optional="true">(Optional) One or more arguments to pass to the event handlers.</param>
 	};
 	EventEmitter.prototype.listeners = function(event) {
 		/// <summary>Returns an array of listeners for the specified event. This array can be manipulated, e.g. to remove listeners.</summary>
@@ -102,7 +102,7 @@ global.vsdoc('events', function() {
 	};
 	EventEmitter.prototype.removeAllListeners = function(event) {
 		/// <summary>Removes all listeners, or those of the specified event.</summary>
-		/// <param name="event">(optional) Name of the event.</param>
+		/// <param name="event" optional="true">(Optional) Name of the event.</param>
 	};
 	EventEmitter.prototype.setMaxListeners = function(n) {
 		/// <summary>By default EventEmitters will print a warning if more than 10 listeners are added for a particular event. This is a useful default which helps finding memory leaks. Obviously not all Emitters should be limited to 10. This function allows that to be increased. Set to zero for unlimited.</summary>
@@ -125,12 +125,12 @@ global.vsdoc('util', function() {
 	};
 	Util.prototype.error = function(argsN) {
 		/// <summary>Writes the arguments to stderr, appending a newline to each one.</summary>
-		/// <param name="argsN">(Optional) Arguments to write to stderr.</param>
+		/// <param name="argsN" optional="true">(Optional) Arguments to write to stderr.</param>
 	};
 	Util.prototype.format = function(template, argsN) {
 		/// <summary>Returns a formatted string using the first argument as a printf-like format.</summary>
 		/// <param name="template">A string that contains zero or more placeholders.</param>
-		/// <param name="argsN">(Optional) One or more arguments that are applied to a placeholder.</param>
+		/// <param name="argsN" optional="true">(Optional) One or more arguments that are applied to a placeholder.</param>
 		return "";
 	};
 	Util.prototype.inspect = function(object, showHidden, dept, colors) {
@@ -185,16 +185,16 @@ global.vsdoc('util', function() {
 		/// <summary>(Experimental) Read the data from readableStream and send it to the writableStream. When writableStream.write(data) returns false readableStream will be paused until the drain event occurs on the writableStream. callback gets an error as its only argument and is called when writableStream is closed or when an error occurs.</summary>
 		/// <param name="readableStream">The stream to read from.</param>
 		/// <param name="writableStream">The stream to write to.</param>
-		/// <param name="callback">(Optional) Called with an error as its only argument and is called when writableStream is closed or when an error occurs.</param>
+		/// <param name="callback" optional="true">(Optional) Called with an error as its only argument and is called when writableStream is closed or when an error occurs.</param>
 		return this;
 	};
 	Util.prototype.puts = function(argsN) {
 		/// <summary>Writes each argument to stdout, appending a newline to each one.</summary>
-		/// <param name="argsN">(Optional) Arguments to write to stdout.</param>
+		/// <param name="argsN" optional="true">(Optional) Arguments to write to stdout.</param>
 	};
 	Util.prototype.print = function(argsN) {
 		/// <summary>Writes the given arguments to stdout.</summary>
-		/// <param name="argsN">(Optional) Arguments to write to stdout.</param>
+		/// <param name="argsN" optional="true">(Optional) Arguments to write to stdout.</param>
 	};
 
 	return new Util();
@@ -237,16 +237,16 @@ global.vsdoc('stream', function() {
 	Stream.prototype.write = function(stringOrBuffer, encoding, fd, callback) {
 		/// <summary>Writes to the stream. Returns true if the string has been flushed to the kernel buffer. Returns false to indicate that the kernel buffer is full, and the data will be sent out in the future. The 'drain' event will indicate when the kernel buffer is empty again.</summary>
 		/// <param name="stringOrBuffer">A string or a buffer. If a string, the given encoding is applied.</param>
-		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
-		/// <param name="fd">(Optional) Interpreted as an integral file descriptor to be sent over the stream. This is only supported for UNIX streams, and is silently ignored otherwise. When writing a file descriptor in this manner, closing the descriptor before the stream drains risks sending an invalid (closed) FD.</param>
+		/// <param name="encoding" optional="true">(Optional) One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <param name="fd" optional="true">(Optional) Interpreted as an integral file descriptor to be sent over the stream. This is only supported for UNIX streams, and is silently ignored otherwise. When writing a file descriptor in this manner, closing the descriptor before the stream drains risks sending an invalid (closed) FD.</param>
 		/// <param name="callback">Callback function(err, data).</param>
 		return false;
 	};
 	Stream.prototype.end = function(stringOrBuffer, encoding, callback) {
 		/// <summary>Terminates the stream with EOF or FIN. This call will allow queued write data to be sent before closing the stream.</summary>
-		/// <param name="stringOrBuffer">(Optional) Data to send before the EOF or FIN termination. This is useful to reduce the number of packets sent.</param>
-		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', or 'base64'. Required if first argument is a string.</param>
-		/// <param name="callback">(Optional) Callback function(err, data).</param>
+		/// <param name="stringOrBuffer" optional="true">(Optional) Data to send before the EOF or FIN termination. This is useful to reduce the number of packets sent.</param>
+		/// <param name="encoding" optional="true">(Optional) One of 'utf8', 'ascii', or 'base64'. Required if first argument is a string.</param>
+		/// <param name="callback" optional="true">(Optional) Callback function(err, data).</param>
 	};
 	util.inherits(Stream, EventEmitter);
 	Stream.prototype.on = function(event, listener) {
@@ -305,51 +305,51 @@ global.vsdoc('assert', function() {
 		/// <summary>Tests shallow, coercive equality with the equal comparison operator ( == ).</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert.fail = function(actual, expected, message, operator, stackStartFunction) {
 		/// <summary>Throws an exception that displays the values for actual and expected separated by the provided operator.</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">(Optional) Failure message.</param>
-		/// <param name="operator">(Optional) Operator being used.</param>
-		/// <param name="stackStartFunction">(Optional) Function where the stack starts.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
+		/// <param name="operator" optional="true">(Optional) Operator being used.</param>
+		/// <param name="stackStartFunction" optional="true">(Optional) Function where the stack starts.</param>
 	};
 	_assert.notEqual = function(actual, expected, message) {
 		/// <summary>Tests shallow, coercive non-equality with the not equal comparison operator ( != ).</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert.deepEqual = function(actual, expected, message) {
 		/// <summary>Tests for deep equality.</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert.notDeepEqual = function(actual, expected, message) {
 		/// <summary>Tests for any deep inequality.</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert.strictEqual = function(actual, expected, message) {
 		/// <summary>Tests strict equality, as determined by the strict equality operator ( === ).</summary>
 		/// <param name="actual">Actual value.</param>
 		/// <param name="expected">Expected value.</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert['throws'] = function(block, error, message) {
 		/// <summary>Expects block to throw an error.</summary>
 		/// <param name="block">The block of code or function.</param>
 		/// <param name="error">Constructor, regexp or validation function(err).</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert.doesNotThrow = function(block, error, message) {
 		/// <summary>Expects block not to throw an error, see assert.throws for details.</summary>
 		/// <param name="block">The block of code or function.</param>
 		/// <param name="error">Constructor, regexp or validation function(err).</param>
-		/// <param name="message">(Optional) Failure message.</param>
+		/// <param name="message" optional="true">(Optional) Failure message.</param>
 	};
 	_assert.ifError = function(value) {
 		/// <summary>Tests if value is not a false value, throws if it is a true value. Useful when testing the first argument, error in callbacks.</summary>
@@ -366,8 +366,8 @@ global.vsdoc('buffer', function() {
 		/// <para>Buffer.INSPECT_MAX_BYTES: How many bytes will be returned when buffer.inspect() is called. This can be overridden by user modules.</para>
 		/// <para>Buffer.poolSize: Size of the buffer pool.</para></summary>
 		/// <param name="sizeOrArrayOrString">If numeric (size), allocates a new buffer of size octets. If Array or String, allocates a new buffer using an array of octets or string.</param>
-		/// <param name="encoding">(Optional) One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Default value is 'utf8'. Used if first argument is a string.</param>
-		/// <param name="offset">(Optional) Numeric offset into the source sizeOrArrayOrString.</param>
+		/// <param name="encoding" optional="true">(Optional) One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Default value is 'utf8'. Used if first argument is a string.</param>
+		/// <param name="offset" optional="true">(Optional) Numeric offset into the source sizeOrArrayOrString.</param>
 		/// <field name="length">The size of the buffer in bytes. Note that this is not necessarily the size of the contents. length refers to the amount of memory allocated for the buffer object. It does not change when the contents of the buffer are changed.</field>
 		this.length = 0;
 	}
@@ -380,7 +380,7 @@ global.vsdoc('buffer', function() {
 	Buffer.byteLength = function(string, encoding) {
 		/// <summary>Gives the actual byte length of a string. This is not the same as String.prototype.length since that returns the number of characters in a string.</summary>
 		/// <param name="string">The string to analyze.</param>
-		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
+		/// <param name="encoding" optional="true">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
 		/// <returns type="Number" integer="true">The actualy byte length of the string.</returns>
 		return 0;
 	};
@@ -389,34 +389,34 @@ global.vsdoc('buffer', function() {
 	Buffer.prototype.write = function(string, offset, length, encoding) {
 		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
 		/// <param name="string"></param>
-		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
-		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
-		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
+		/// <param name="offset" optional="true">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length" optional="true">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <param name="encoding" optional="true">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
 		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
 		return 0;
 	};
 	Buffer.prototype.toString = function(encoding, start, end) {
 		/// <summary>Decodes and returns a string from buffer data encoded with encoding (defaults to 'utf8') beginning at start (defaults to 0) and ending at end (defaults to buffer.length).</summary>
-		/// <param name="encoding">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
-		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
-		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <param name="encoding" optional="true">(Optional) Encoding to use. One of 'utf8', 'ascii', 'base64', 'ucs2', 'binary' or 'hex'. Defaults to 'utf8'.</param>
+		/// <param name="start" optional="true">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end" optional="true">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="String">A string.</returns>
 		return "";
 	};
 	Buffer.prototype.fill = function(value, offset, end) {
 		/// <summary>Fills the buffer with the specified value. If the offset and end are not given it will fill the entire buffer.</summary>
 		/// <param name="value">Description</param>
-		/// <param name="offset">(Optional) Index to start at. Defaults to zero.</param>
-		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <param name="offset" optional="true">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end" optional="true">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="Number" integer="true">The number of bytes filled.</returns>
 		return 0;
 	};
 	Buffer.prototype.copy = function(target, target_start, start, end) {
 		/// <summary>Does copy between buffers. The source and target regions can be overlapped.</summary>
 		/// <param name="target">The target buffer.</param>
-		/// <param name="target_start">(Optional) Index to start at in the target buffer. Defaults to zero.</param>
-		/// <param name="start">(Optional) Index to start at in the source buffer. Defaults to zero.</param>
-		/// <param name="target_end">(Optional) Index to end at in the source buffer. Defaults to buffer.length.</param>
+		/// <param name="target_start" optional="true">(Optional) Index to start at in the target buffer. Defaults to zero.</param>
+		/// <param name="start" optional="true">(Optional) Index to start at in the source buffer. Defaults to zero.</param>
+		/// <param name="target_end" optional="true">(Optional) Index to end at in the source buffer. Defaults to buffer.length.</param>
 		/// <returns type="Buffer">A new buffer.</returns>
 		return new Buffer('');
 	};
@@ -424,8 +424,8 @@ global.vsdoc('buffer', function() {
 		/// <summary>Returns a new buffer which references the same memory as the old, but offset and cropped by the start (defaults to 0) and end (defaults to buffer.length) indexes.
 		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
 		/// </summary>
-		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
-		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <param name="start" optional="true">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end" optional="true">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="Buffer">A new buffer.</returns>
 		return new Buffer('');
 	};
@@ -434,8 +434,8 @@ global.vsdoc('buffer', function() {
 		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
 		///     <para>WARNING: Legacy method for backwards compatibility.</para>
 		/// </summary>
-		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
-		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <param name="start" optional="true">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end" optional="true">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="Buffer">A new buffer.</returns>
 		return this.toString('utf8', start, end);
 	};
@@ -444,8 +444,8 @@ global.vsdoc('buffer', function() {
 		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
 		///     <para>WARNING: Legacy method for backwards compatibility.</para>
 		/// </summary>
-		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
-		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <param name="start" optional="true">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end" optional="true">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="Buffer">A new buffer.</returns>
 		return this.toString('binary', start, end);
 	};
@@ -454,129 +454,129 @@ global.vsdoc('buffer', function() {
 		///     <para>WARNING: Modifying the new buffer slice will modify memory in the original buffer!</para>
 		///     <para>WARNING: Legacy method for backwards compatibility.</para>
 		/// </summary>
-		/// <param name="start">(Optional) Index to start at. Defaults to zero.</param>
-		/// <param name="end">(Optional) Index to end at. Defaults to buffer.length.</param>
+		/// <param name="start" optional="true">(Optional) Index to start at. Defaults to zero.</param>
+		/// <param name="end" optional="true">(Optional) Index to end at. Defaults to buffer.length.</param>
 		/// <returns type="Buffer">A new buffer.</returns>
 		return this.toString('ascii', start, end);
 	};
 	Buffer.prototype.utf8Write = function(string, offset) {
 		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
 		/// <param name="string"></param>
-		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
-		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <param name="offset" optional="true">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length" optional="true">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
 		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
 		return this.write(string, offset, 'utf8');
 	};
 	Buffer.prototype.binaryWrite = function(string, offset) {
 		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
 		/// <param name="string"></param>
-		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
-		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <param name="offset" optional="true">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length" optional="true">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
 		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
 		return this.write(string, offset, 'binary');
 	};
 	Buffer.prototype.asciiWrite = function(string, offset) {
 		/// <summary>Writes string to the buffer at offset using the given encoding. If buffer did not contain enough space to fit the entire string, it will write a partial amount of the string. length defaults to buffer.length - offset. The method will not write partial characters.</summary>
 		/// <param name="string"></param>
-		/// <param name="offset">(Optional) Offset into the given string. Defaults to 0.</param>
-		/// <param name="length">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
+		/// <param name="offset" optional="true">(Optional) Offset into the given string. Defaults to 0.</param>
+		/// <param name="length" optional="true">(Optional) Number of bytes to write. Defaults to the length of the string.</param>
 		/// <returns type="Number" integer="true">Returns the number of octets written. </returns>
 		return this.write(string, offset, 'ascii');
 	};
 	Buffer.prototype.readUInt8 = function(offset, noAssert) {
 		/// <summary>Reads an unsigned 8 bit integer from the buffer at the specified offset.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 	};
 	Buffer.prototype.readUInt16LE = function(offset, noAssert) {
 		/// <summary>Reads an unsigned 16 bit integer from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readUInt16BE = function(offset, noAssert) {
 		/// <summary>Reads an unsigned 16 bit integer from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readUInt32LE = function(offset, noAssert) {
 		/// <summary>Reads an unsigned 32 bit integer from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readUInt32BE = function(offset, noAssert) {
 		/// <summary>Reads an unsigned 32 bit integer from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readInt8 = function(offset, noAssert) {
 		/// <summary>Reads a signed 8 bit integer from the buffer at the specified offset. Works as buffer.readUInt8, except buffer contents are treated as two's complement signed values.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readInt16LE = function(offset, noAssert) {
 		/// <summary>Reads a signed 16 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt16*, except buffer contents are treated as two's complement signed values.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readInt16BE = function(offset, noAssert) {
 		/// <summary>Reads a signed 16 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt16*, except buffer contents are treated as two's complement signed values.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readInt32LE = function(offset, noAssert) {
 		/// <summary>Reads a signed 32 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt32*, except buffer contents are treated as two's complement signed values.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readInt32BE = function(offset, noAssert) {
 		/// <summary>Reads a signed 32 bit integer from the buffer at the specified offset with specified endian format. Works as buffer.readUInt32*, except buffer contents are treated as two's complement signed values.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number" integer="true">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readFloatLE = function(offset, noAssert) {
 		/// <summary>Reads a 32 bit float from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readFloatBE = function(offset, noAssert) {
 		/// <summary>Reads a 32 bit float from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readDoubleLE = function(offset, noAssert) {
 		/// <summary>Reads a 64 bit double from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number">The number read from the buffer.</returns>
 		return 0;
 	};
 	Buffer.prototype.readDoubleBE = function(offset, noAssert) {
 		/// <summary>Reads a 64 bit double from the buffer at the specified offset with specified endian format.</summary>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of offset. This means that offset may be beyond the end of the buffer. Defaults to false.</param>
 		/// <returns type="Number">The number read from the buffer.</returns>
 		return 0;
 	};
@@ -584,7 +584,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset. Note, value must be a valid unsigned 8 bit integer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -592,7 +592,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -600,7 +600,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 16 bit integer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -608,7 +608,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 32 bit integer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -616,7 +616,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid unsigned 32 bit integer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -624,7 +624,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset. Note, value must be a valid signed 8 bit integer. Works as buffer.writeUInt8, except value is written out as a two's complement signed integer into buffer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -632,7 +632,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 16 bit integer. Works as buffer.writeUInt16*, except value is written out as a two's complement signed integer into buffer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -640,7 +640,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 16 bit integer. Works as buffer.writeUInt16*, except value is written out as a two's complement signed integer into buffer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -648,7 +648,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 32 bit integer. Works as buffer.writeUInt32*, except value is written out as a two's complement signed integer into buffer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -656,7 +656,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid signed 32 bit integer. Works as buffer.writeUInt32*, except value is written out as a two's complement signed integer into buffer.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -664,7 +664,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 32 bit float.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -672,7 +672,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 32 bit float.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -680,7 +680,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 64 bit double.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -688,7 +688,7 @@ global.vsdoc('buffer', function() {
 		/// <summary>Writes value to the buffer at the specified offset with specified endian format. Note, value must be a valid 64 bit double.</summary>
 		/// <param name="value">The value to write.</param>
 		/// <param name="offset">Index to start at.</param>
-		/// <param name="noAssert">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
+		/// <param name="noAssert" optional="true">(Optional) Set noAssert to true to skip validation of value and offset. This means that value may be too large for the specific function and offset may be beyond the end of the buffer leading to the values being silently dropped. This should not be used unless you are certain of correctness. Defaults to false.</param>
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
@@ -728,7 +728,7 @@ global.vsdoc('timers', function() {
 			/// </summary>
 			/// <param name="callback">Function that will be called upon the timeout.</param>
 			/// <param name="delay">Number of milliseconds before the timeout occurs.</param>
-			/// <param name="argsN">(Optional) Arguments to pass to the callback.</param>
+			/// <param name="argsN" optional="true">(Optional) Arguments to pass to the callback.</param>
 			/// <returns>Returns a timer object, for possible use with clearTimeout().</returns>
 			if (arguments.length > 2)
 				callback.call(null, Array.prototype.slice.call(arguments, 2));
@@ -744,7 +744,7 @@ global.vsdoc('timers', function() {
 			/// <summary>To schedule the repeated execution of callback every delay milliseconds.</summary>
 			/// <param name="callback">Function that will be called upon the timeout.</param>
 			/// <param name="delay">Number of milliseconds before the timeout occurs.</param>
-			/// <param name="argsN">(Optional) Arguments to pass to the callback.</param>
+			/// <param name="argsN" optional="true">(Optional) Arguments to pass to the callback.</param>
 			/// <returns>Returns a timeoutId for possible use with clearInterval().</returns>
 			if (arguments.length > 2)
 				callback.call(null, Array.prototype.slice.call(arguments, 2));
