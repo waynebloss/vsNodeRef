@@ -701,3 +701,60 @@ global.vsdoc('buffer', function() {
 });
 
 var Buffer = require('buffer').Buffer;
+
+global.vsdoc('timers', function() {
+
+	function Timer() {
+		/// <summary>Timer object (id).</summary>
+	}
+
+	return {
+		active: function(item) {
+			/// <summary>Mark the given item as active within the global timer. Call whenever the item is not idle.</summary>
+			/// <param name="item">The item to activate.</param>
+		},
+		enroll: function(item, idleTimeout) {
+			/// <summary>Enrolls the given item with the global timer.</summary>
+			/// <param name="item">The item to enroll.</param>
+			/// <param name="itemTimeout">Time (in milliseconds) to wait before marking the item as idle.</param>
+		},
+		unenroll: function(item) {
+			/// <summary>Unenrolls the given item from the global timer.</summary>
+			/// <param name="item">The item to unenroll.</param>
+		},
+		setTimeout: function(callback, delay, argsN) {
+			/// <summary>Schedules execution of a one-time callback.
+			///     <para>It is important to note that your callback will probably not be called in exactly delay milliseconds - Node.js makes no guarantees about the exact timing of when the callback will fire, nor of the ordering things will fire in. The callback will be called as close as possible to the time specified.</para>
+			/// </summary>
+			/// <param name="callback" type="Function">Function that will be called upon the timeout.</param>
+			/// <param name="delay">Number of milliseconds before the timeout occurs.</param>
+			/// <param name="argsN">(Optional) Arguments to pass to the callback.</param>
+			/// <returns>Returns a timer object, for possible use with clearTimeout().</returns>
+			if (arguments.length > 2)
+				callback.call(null, Array.prototype.slice.call(arguments, 2));
+			else
+				callback.call(null);
+			return new Timer();
+		},
+		clearTimeout: function(timeoutId) {
+			/// <summary>Attempts to prevent a timeout from triggering.</summary>
+			/// <param name="timeoutId">The timer to clear.</param>
+		},
+		setInterval: function(callback, delay, argsN) {
+			/// <summary>To schedule the repeated execution of callback every delay milliseconds.</summary>
+			/// <param name="callback" type="Function">Function that will be called upon the timeout.</param>
+			/// <param name="delay">Number of milliseconds before the timeout occurs.</param>
+			/// <param name="argsN">(Optional) Arguments to pass to the callback.</param>
+			/// <returns>Returns a timeoutId for possible use with clearInterval().</returns>
+			if (arguments.length > 2)
+				callback.call(null, Array.prototype.slice.call(arguments, 2));
+			else
+				callback.call(null);
+			return new Timer();
+		},
+		clearInterval: function(intervalId) {
+			/// <summary>Stops a interval from triggering.</summary>
+			/// <param name="intervalId">The timer to clear.</param>
+		}
+	};
+});
