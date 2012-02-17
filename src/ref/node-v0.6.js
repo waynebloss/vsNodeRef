@@ -840,10 +840,23 @@ global.vsdoc('net', function() {
 		/// <param name="callback" optional="true">(Optional) Callback function(err, data). Will be executed when the data is finally written out - this may not be immediately.</param>
 	};
 
-	function Server() {
-
+	function Server(options, listener) {
+		/// <summary>This class is used to create a TCP or UNIX server. A server is a net.Socket that can listen for new incoming connections.</summary>
+		/// <param name="options" optional="true">(Optional) An object with the following defaults: {allowHalfOpen: false}
+		///     <para>If allowHalfOpen is true, then the socket won't automatically send FIN packet when the other end of the socket sends a FIN packet. The socket becomes non-readable, but still writable. You should call the end() method explicitly. See 'end' event for more information.</para>
+		/// </param>
+		/// <param name="listener" optional="true">(Optional) Callback function(Socket connection) which is added as an listener for the 'connect' event.</param>
 	}
 	util.inherits(Server, EventEmitter);
+	Server.prototype.listen = function(port, host, listeningListener) {
+		/// <summary>Begin accepting connections on the specified port and host. If the host is omitted, the server will accept connections directed to any IPv4 address (INADDR_ANY). A port value of zero will assign a random port.
+		///     <para>This function is asynchronous. When the server has been bound, 'listening' event will be emitted. the last parameter listeningListener will be added as an listener for the 'listening' event.</para>
+		///     <para>One issue some users run into is getting EADDRINUSE errors. This means that another server is already running on the requested port. One way of handling this would be to wait a second and then try again. This can be done with</para>
+		/// </summary>
+		/// <param name="port">Description</param>
+		/// <param name="host" optional="true">(Optional) </param>
+		/// <param name="listeningListener" optional="true">(Optional) </param>
+	};
 
 	return {
 		createServer: function(options, connectionListener) {
