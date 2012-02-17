@@ -212,6 +212,7 @@ global.vsdoc('stream', function() {
 		this.readable = true;
 		this.writable = true;
 	}
+	util.inherits(Stream, EventEmitter);
 	Stream.prototype.destroy = function(callback) {
 		/// <summary>Closes the underlying file descriptor. Stream will not emit any more events. Any queued write data will not be sent.</summary>
 		/// <param name="callback">Error callback function.</param>
@@ -248,7 +249,6 @@ global.vsdoc('stream', function() {
 		/// <param name="encoding" optional="true">(Optional) One of 'utf8', 'ascii', or 'base64'. Required if first argument is a string.</param>
 		/// <param name="callback" optional="true">(Optional) Callback function(err, data).</param>
 	};
-	util.inherits(Stream, EventEmitter);
 	Stream.prototype.on = function(event, listener) {
 		/// <summary>Adds a listener to the end of the listeners array for the specified event.
 		/// <para>close(): Emitted when the underlying file descriptor has been closed. Not all streams will emit this.</para>
@@ -756,5 +756,122 @@ global.vsdoc('timers', function() {
 			/// <summary>Stops a interval from triggering.</summary>
 			/// <param name="intervalId">The timer to clear.</param>
 		}
+	};
+});
+
+global.vsdoc('net', function() {
+
+	var Stream = require('stream');
+	var EventEmitter = require('events').EventEmitter;
+	var util = require('util');
+
+	function Socket(options) {
+		/// <summary>Socket class. This object is an abstraction of a TCP or UNIX socket. net.Socket instances implement a duplex Stream interface. They can be created by the user and used as a client (with connect()) or they can be created by Node and passed to the user through the 'connection' event of a server.</summary>
+		/// <param name="options">Socket options.</param>
+		/// <field name="bufferSize" type="Number" integer="true">Size of the socket's buffer.</field>
+		/// <field name="bytesRead" type="Number" integer="true">The count of bytes received.</field>
+		/// <field name="bytesWritten" type="Number" integer="true">The count of bytes sent.</field>
+		/// <field name="readyState" type="String">Ready state of the socket.</field>
+		/// <field name="remoteAddress" type="String">The string representation of the remote IP address. For example, '74.125.127.100' or '2001:4860:a005::68'.</field>
+		/// <field name="remotePort" type="Number" integer="true">The numeric representation of the remote port. For example, 80 or 21.</field>this.bufferSize = 0;
+		this.bufferSize = 0;
+		this.bytesRead = 0;
+		this.bytesWritten = 0;
+		this.readyState = 'closed';
+		this.remoteAddress = '';
+		this.remotePort = 0;
+	}
+	util.inherits(Socket, Stream);
+	Socket.prototype.address = function() {
+		/// <summary>Returns the bound address and port of the socket as reported by the operating system.
+		///     <para>Returns an object with two properties, e.g. {"address":"192.168.57.1", "port":62053}</para>
+		/// </summary>
+		return { address: "192.168.57.1", port: 62053 };
+	};
+	Socket.prototype.connect = function(portOrPath, host, connectListener) {
+		/// <summary>Opens the connection for a given socket. If port and host are given, then the socket will be opened as a TCP socket, if host is omitted, localhost will be assumed. If a path is given, the socket will be opened as a unix socket to that path.
+		///     <para>Normally this method is not needed, as net.createConnection opens the socket. Use this only if you are implementing a custom Socket or if a Socket is closed and you want to reuse it to connect to another server.</para>
+		///     <para>This function is asynchronous. When the 'connect' event is emitted the socket is established. If there is a problem connecting, the 'connect' event will not be emitted, the 'error' event will be emitted with the exception.</para>
+		/// </summary>
+		/// <param name="host" optional="true">(Optional) </param>
+		/// <param name="connectListener">The connectListener function(Socket connection) will be added as an listener for the 'connect' event.</param>
+	};
+	Socket.prototype.listen = function() {
+		/// <summary>Starts the socket listening.</summary>
+	};
+	Socket.prototype.on = function(event, listener) {
+		/// <summary>Adds a listener to the end of the listeners array for the specified event.
+		/// <para>timeout(): Emitted if the socket times out from inactivity. This is only to notify that the socket has been idle. The user must manually close the connection.</para>
+		/// <para>connect(): Emitted when a socket connection is successfully established. See connect().</para>
+		/// <para>close(had_error): Emitted once the socket is fully closed. The argument had_error is a boolean which says if the socket was closed due to a transmission error.</para>
+		/// <para>data(data): Emits either a Buffer (by default) or a string if setEncoding() was used.</para>
+		/// <para>drain(): Emitted when the write buffer becomes empty. Can be used to throttle uploads. See also: the return values of socket.write()</para>
+		/// <para>end(): Emitted when the other end of the socket sends a FIN packet.</para>
+		/// <para>    By default (allowHalfOpen == false) the socket will destroy its file descriptor once it has written out its pending write queue. However, by setting allowHalfOpen == true the socket will not automatically end() its side allowing the user to write arbitrary amounts of data, with the caveat that the user is required to end() their side now.</para>
+		/// <para>error(exception): Emitted when an error occurs. The 'close' event will be called directly following this event.</para>
+		/// <para>pipe(src): Emitted when the stream is passed to a readable stream's pipe method.</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
+		/// </summary>
+		/// <param name="event">Name of the event.</param>
+		/// <param name="listener">Function that is called upon the event.</param>
+	};
+	Socket.prototype.setKeepAlive = function(enable, initialDelay) {
+		/// <summary>Enable/disable keep-alive functionality, and optionally set the initial delay before the first keepalive probe is sent on an idle socket.</summary>
+		/// <param name="enable">Specifies if keepAlive should be on. Defaults to false.</param>
+		/// <param name="initialDelay">Delay in milliseconds between the last data packet received and the first keepalive probe. Setting 0 will leave the value unchanged from the default (or previous) setting.
+		///     <para>Defaults to 0.</para>
+		/// </param>
+	};
+	Socket.prototype.setNoDelay = function(noDelay) {
+		/// <summary>Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.</summary>
+		/// <param name="noDelay" optional="true">Specifies if noDelay is on. Defaults to true.</param>
+	};
+	Socket.prototype.setTimeout = function(timeout, callback) {
+		/// <summary>Sets the socket to timeout after timeout milliseconds of inactivity on the socket. By default net.Socket do not have a timeout.
+		///     <para>When an idle timeout is triggered the socket will receive a 'timeout' event but the connection will not be severed. The user must manually end() or destroy() the socket.</para>
+		/// </summary>
+		/// <param name="timeout">The timeout in milliseconds.</param>
+		/// <param name="callback" optional="true">(Optional) Callback function, a one time listener for the 'timeout' event.</param>
+	};
+	Socket.prototype.write = function(data, encoding, callback) {
+		/// <summary>Sends data on the socket. Returns true if the entire data was flushed successfully to the kernel buffer. Returns false if all or part of the data was queued in user memory. 'drain' will be emitted when the buffer is again free.</summary>
+		/// <param name="data">A string or a buffer. If a string, the given encoding is applied.</param>
+		/// <param name="encoding" optional="true">(Optional) One of 'utf8', 'ascii', or 'base64'. Defaults to 'utf8'.</param>
+		/// <param name="callback" optional="true">(Optional) Callback function(err, data). Will be executed when the data is finally written out - this may not be immediately.</param>
+	};
+
+	function Server() {
+
+	}
+	util.inherits(Server, EventEmitter);
+
+	return {
+		createServer: function(options, connectionListener) {
+			/// <summary>Creates a new TCP server. The connectionListener argument is automatically set as a listener for the 'connection' event.</summary>
+			/// <param name="options" optional="true">(Optional) An object with the following defaults: {allowHalfOpen: false}
+			///     <para>If allowHalfOpen is true, then the socket won't automatically send FIN packet when the other end of the socket sends a FIN packet. The socket becomes non-readable, but still writable. You should call the end() method explicitly. See 'end' event for more information.</para>
+			/// </param>
+			/// <param name="connectionListener" optional="true">(Optional) Callback function(Socket connection) that is called on every new connection.</param>
+			/// <returns type="Server">A server object.</returns>
+			return new Server();
+		},
+		connect: function() {
+
+		},
+		createConnection: function() {
+
+		},
+		isIP: function() {
+
+		},
+		isIPv4: function() {
+
+		},
+		isIPv6: function() {
+
+		},
+		Socket: Socket,
+		Stream: Socket,
+		Server: Server
 	};
 });
