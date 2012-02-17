@@ -726,7 +726,7 @@ global.vsdoc('timers', function() {
 			/// <summary>Schedules execution of a one-time callback.
 			///     <para>It is important to note that your callback will probably not be called in exactly delay milliseconds - Node.js makes no guarantees about the exact timing of when the callback will fire, nor of the ordering things will fire in. The callback will be called as close as possible to the time specified.</para>
 			/// </summary>
-			/// <param name="callback" type="Function">Function that will be called upon the timeout.</param>
+			/// <param name="callback">Function that will be called upon the timeout.</param>
 			/// <param name="delay">Number of milliseconds before the timeout occurs.</param>
 			/// <param name="argsN">(Optional) Arguments to pass to the callback.</param>
 			/// <returns>Returns a timer object, for possible use with clearTimeout().</returns>
@@ -742,7 +742,7 @@ global.vsdoc('timers', function() {
 		},
 		setInterval: function(callback, delay, argsN) {
 			/// <summary>To schedule the repeated execution of callback every delay milliseconds.</summary>
-			/// <param name="callback" type="Function">Function that will be called upon the timeout.</param>
+			/// <param name="callback">Function that will be called upon the timeout.</param>
 			/// <param name="delay">Number of milliseconds before the timeout occurs.</param>
 			/// <param name="argsN">(Optional) Arguments to pass to the callback.</param>
 			/// <returns>Returns a timeoutId for possible use with clearInterval().</returns>
