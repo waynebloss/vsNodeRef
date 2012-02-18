@@ -759,6 +759,11 @@ global.vsdoc('timers', function() {
 	};
 });
 
+var setTimeout = require('timers').setTimeout;
+var clearTimeout = require('timers').clearTimeout;
+var setInterval = require('timers').setInterval;
+var clearInterval = require('timers').clearInterval;
+
 global.vsdoc('net', function() {
 
 	var Stream = require('stream');
