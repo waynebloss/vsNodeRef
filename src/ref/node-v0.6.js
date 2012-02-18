@@ -800,6 +800,7 @@ global.vsdoc('net', function() {
 		/// </summary>
 		/// <param name="host" optional="true">(Optional) </param>
 		/// <param name="connectListener">The connectListener function(Socket connection) will be added as an listener for the 'connect' event.</param>
+		return this;
 	};
 	Socket.prototype.listen = function() {
 		/// <summary>Starts the socket listening.</summary>
@@ -851,16 +852,48 @@ global.vsdoc('net', function() {
 		///     <para>If allowHalfOpen is true, then the socket won't automatically send FIN packet when the other end of the socket sends a FIN packet. The socket becomes non-readable, but still writable. You should call the end() method explicitly. See 'end' event for more information.</para>
 		/// </param>
 		/// <param name="listener" optional="true">(Optional) Callback function(Socket connection) which is added as an listener for the 'connect' event.</param>
+		/// <field name="connections" type="Number" integer="true">The number of concurrent connections on the server.</field>
+		/// <field name="maxConnections" type="Number" integer="true">Set this property to reject connections when the server's connection count gets high.</field>
+		this.connections = 0;
+		this.maxConnections = 0;
 	}
 	util.inherits(Server, EventEmitter);
-	Server.prototype.listen = function(port, host, listeningListener) {
-		/// <summary>Begin accepting connections on the specified port and host. If the host is omitted, the server will accept connections directed to any IPv4 address (INADDR_ANY). A port value of zero will assign a random port.
+	Server.prototype.address = function() {
+		/// <summary>Returns the bound address and port of the socket as reported by the operating system.
+		///     <para>Returns an object with two properties, e.g. {"address":"192.168.57.1", "port":62053}</para>
+		/// </summary>
+		return { address: "192.168.57.1", port: 62053 };
+	};
+	Server.prototype.close = function() {
+		/// <summary>Stops the server from accepting new connections. This function is asynchronous, the server is finally closed when the server emits a 'close' event.</summary>
+		return this;
+	};
+	Server.prototype.listen = function(portOrPath, host, listeningListener) {
+		/// <summary>Begin accepting connections on the specified port and host.
+		///     <para>If a path is given instead of port, starts a UNIX socket server listening for connections on the given path.</para>
+		///     <para>If the host is omitted, the server will accept connections directed to any IPv4 address (INADDR_ANY). A port value of zero will assign a random port.</para>
 		///     <para>This function is asynchronous. When the server has been bound, 'listening' event will be emitted. the last parameter listeningListener will be added as an listener for the 'listening' event.</para>
 		///     <para>One issue some users run into is getting EADDRINUSE errors. This means that another server is already running on the requested port. One way of handling this would be to wait a second and then try again. This can be done with</para>
 		/// </summary>
-		/// <param name="port">Description</param>
-		/// <param name="host" optional="true">(Optional) </param>
-		/// <param name="listeningListener" optional="true">(Optional) </param>
+		/// <param name="portOrPath">Remote port or UNIX file path.</param>
+		/// <param name="host" optional="true">(Optional) Remote host address.</param>
+		/// <param name="listeningListener" optional="true">(Optional) Handler function assigned to the 'listening' event.</param>
+	};
+	Server.prototype.on = function(event, listener) {
+		/// <summary>Adds a listener to the end of the listeners array for the specified event.
+		/// <para>listening(): Emitted when the server has been bound after calling server.listen.</para>
+		/// <para>connection(socket): Emitted when a new connection is made. socket is an instance of net.Socket.</para>
+		/// <para>close(): Emitted when the server closes.</para>
+		/// <para>error(exception): Emitted when an error occurs. The 'close' event will be called directly following this event. See example in discussion of server.listen.</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
+		/// </summary>
+		/// <param name="event">Name of the event.</param>
+		/// <param name="listener">Function that is called upon the event.</param>
+		return this;
+	};
+	Server.prototype.pause = function(msecs) {
+		/// <summary>Stop accepting connections for the given number of milliseconds (default is one second). This could be useful for throttling new connections against DoS attacks or other oversubscription.</summary>
+		/// <param name="msecs">The number of milliseconds to pause for.</param>
 	};
 
 	return {
@@ -871,22 +904,42 @@ global.vsdoc('net', function() {
 			/// </param>
 			/// <param name="connectionListener" optional="true">(Optional) Callback function(Socket connection) that is called on every new connection.</param>
 			/// <returns type="Server">A server object.</returns>
-			return new Server();
+			return new Server(options, connectionListener);
 		},
-		connect: function() {
-
+		connect: function(portOrPath, host, connectListener) {
+			/// <summary>Construct a new socket object and opens a socket to the given location. When the socket is established the 'connect' event will be emitted.
+			///     <para>If a path is given instead of port, starts a UNIX socket server listening for connections on the given path.</para>
+			/// </summary>
+			/// <param name="portOrPath">Remote port or UNIX file path.</param>
+			/// <param name="host" optional="true">(Optional) Remote host name or ip.</param>
+			/// <param name="connectListener" optional="true">(Optional) Listener function assigned to the 'connect' event.</param>
+			/// <returns type="Socket">A new Socket.</returns>
+			return new Socket(null);
 		},
-		createConnection: function() {
-
+		createConnection: function(portOrPath, host, connectListener) {
+			/// <summary>Construct a new socket object and opens a socket to the given location. When the socket is established the 'connect' event will be emitted.
+			///     <para>If a path is given instead of port, starts a UNIX socket server listening for connections on the given path.</para>
+			/// </summary>
+			/// <param name="portOrPath">Remote port or UNIX file path.</param>
+			/// <param name="host" optional="true">(Optional) Remote host name or ip.</param>
+			/// <param name="connectListener" optional="true">(Optional) Listener function assigned to the 'connect' event.</param>
+			/// <returns type="Socket">A new Socket.</returns>
+			return new Socket(null);
 		},
-		isIP: function() {
-
+		isIP: function(input) {
+			/// <summary>Tests if input is an IP address. Returns 0 for invalid strings, returns 4 for IP version 4 addresses, and returns 6 for IP version 6 addresses.</summary>
+			/// <param name="input">The input value to test.</param>
+			return true;
 		},
-		isIPv4: function() {
-
+		isIPv4: function(input) {
+			/// <summary>Returns true if input is a version 4 IP address, otherwise returns false.</summary>
+			/// <param name="input">The input value to test.</param>
+			return true;
 		},
-		isIPv6: function() {
-
+		isIPv6: function(input) {
+			/// <summary>Returns true if input is a version 6 IP address, otherwise returns false.</summary>
+			/// <param name="input">The input value to test.</param>
+			return true;
 		},
 		Socket: Socket,
 		Stream: Socket,
