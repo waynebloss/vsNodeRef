@@ -893,3 +893,15 @@ global.vsdoc('net', function() {
 		Server: Server
 	};
 });
+
+// The __Node namespace contains a reference to every class constructor from
+// every Node.js built-in module, except for the ones that are already global
+// (like Buffer). These class references can be used in param XML comment elements
+// as the value of the type attribute in closures or continuation functions.
+// e.g. (param name="connection" type="__Node.Socket"/)
+//
+var __Node = {
+	EventEmitter: require('events').EventEmitter,
+	Socket: require('net').Socket,
+	Stream: require('stream')
+};

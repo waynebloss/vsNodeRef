@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="demo_basic.js" />
+    <Content Include="demo_continuation.js" />
     <Content Include="ref\node-v0.6.js" />
     <Content Include="ref\testMod.js" />
   </ItemGroup>
