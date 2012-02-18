@@ -60,6 +60,13 @@ var module = global.module;
 
 var require = global.require;
 
+// The __Node namespace will contain a reference to every class constructor from
+// every Node.js built-in module. These class references can be used in param
+// XML comment elements as the value of the type attribute in closures or
+// continuation functions. e.g. <param name="connection" type="__Node.Socket"/>
+//
+var __Node = {};
+
 // ### Modules in order of least-dependent-first.
 
 global.vsdoc('events', function() {
@@ -108,6 +115,9 @@ global.vsdoc('events', function() {
 		/// <summary>By default EventEmitters will print a warning if more than 10 listeners are added for a particular event. This is a useful default which helps finding memory leaks. Obviously not all Emitters should be limited to 10. This function allows that to be increased. Set to zero for unlimited.</summary>
 		/// <param name="n">The maximum number to set.</param>
 	};
+
+	__Node.EventEmitter = EventEmitter;
+
 	return {
 		EventEmitter: EventEmitter
 	};
@@ -262,6 +272,8 @@ global.vsdoc('stream', function() {
 		/// <param name="event">Name of the event.</param>
 		/// <param name="listener">Function that is called upon the event.</param>
 	};
+
+	__Node.Stream = Stream;
 
 	return Stream;
 });
@@ -692,7 +704,9 @@ global.vsdoc('buffer', function() {
 		/// <returns>The number of bytes written.</returns>
 		return 0;
 	};
-	
+
+	__Node.Buffer = Buffer;
+
 	return {
 		Buffer: Buffer,
 		INSPECT_MAX_BYTES: 50,
@@ -892,6 +906,9 @@ global.vsdoc('net', function() {
 		return this;
 	};
 
+	__Node.Socket = Socket;
+	__Node.Server = Server;
+
 	return {
 		createServer: function(options, connectionListener) {
 			/// <summary>Creates a new TCP server. The connectionListener argument is automatically set as a listener for the 'connection' event.</summary>
@@ -1008,6 +1025,8 @@ global.vsdoc('child_process', function() {
 		return new ChildProcess();
 	};
 
+	__Node.ChildProcess = ChildProcess;
+
 	return {
 		fork: function(modulePath, args, options) {
 			/// <summary>This is a special case of the spawn() functionality for spawning Node processes. In addition to having all the methods in a normal ChildProcess instance, the returned object has a communication channel built-in. The channel is written to with child.send(message, [sendHandle]) and messages are received by a 'message' event on the child.</summary>
@@ -1039,16 +1058,3 @@ global.vsdoc('child_process', function() {
 		}
 	};
 });
-
-// The __Node namespace contains a reference to every class constructor from
-// every Node.js built-in module, except for the ones that are already global
-// (like Buffer). These class references can be used in param XML comment elements
-// as the value of the type attribute in closures or continuation functions.
-// e.g. (param name="connection" type="__Node.Socket"/)
-//
-var __Node = {
-	EventEmitter: require('events').EventEmitter,
-	Server: require('net').Server,
-	Socket: require('net').Socket,
-	Stream: require('stream')
-};

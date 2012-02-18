@@ -17,6 +17,7 @@ st.on('pipe', function(src) {
 	/// <param name="src" type="__Node.Stream"/>
 	
 });
-// NOTE: The __Node namespace contains references to all classes exported
-// by Node.js and it's built-in modules. This namespace is only for use within
-// the param XML comment.
+// The __Node namespace will contain a reference to every class constructor from
+// every Node.js built-in module. These class references can be used in param
+// XML comment elements as the value of the type attribute in closures or
+// continuation functions. e.g. <param name="connection" type="__Node.Socket"/>
