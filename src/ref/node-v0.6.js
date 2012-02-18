@@ -955,6 +955,7 @@ global.vsdoc('net', function() {
 //
 var __Node = {
 	EventEmitter: require('events').EventEmitter,
+	Server: require('net').Server,
 	Socket: require('net').Socket,
 	Stream: require('stream')
 };
