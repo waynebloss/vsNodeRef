@@ -943,6 +943,103 @@ global.vsdoc('net', function() {
 	};
 });
 
+global.vsdoc('child_process', function() {
+
+	var EventEmitter = require('events').EventEmitter;
+	var util = require('util');
+	var Stream = require('stream');
+
+	function ChildProcess() {
+		/// <summary>Node provides a tri-directional popen(3) facility through the ChildProcess class.
+		///     <para>It is possible to stream data through the child's stdin, stdout, and stderr in a fully non-blocking way.</para>
+		///     <para>To create a child process use require('child_process').spawn().</para>
+		///     <para>Child processes always have three streams associated with them. child.stdin, child.stdout, and child.stderr.</para>
+		///     <para>ChildProcess is an EventEmitter.</para>
+		/// </summary>
+		/// <field name="pid" type="Number" integer="true">The PID of the child process.</field>
+		/// <field name="stderr" type="Stream">A Readable Stream that represents the child process's stderr.</field>
+		/// <field name="stdin" type="Stream">A Writable Stream that represents the child process's stdin. Closing this stream via end() often causes the child process to terminate.</field>
+		/// <field name="stdout" type="Stream">A Readable Stream that represents the child process's stdout.</field>
+		this.pid = 0;
+		this.stderr = new Stream();
+		this.stdin = new Stream();
+		this.stdout = new Stream();
+	}
+	util.inherits(ChildProcess, EventEmitter);
+	ChildProcess.prototype.exec = function(command, options, callback) {
+		/// <summary>Runs a command in a shell and buffers the output.</summary>
+		/// <param name="options" optional="true">(Optional) Additional options. Defaults to: { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null }.</param>
+		/// <param name="callback">Callback function(error, stdout, stderr) that will be called after execution begins.</param>
+		return new ChildProcess();
+	};
+	ChildProcess.prototype.execFile = function(file, args, options, callback) {
+		/// <summary>This is similar to child_process.exec() except it does not execute a subshell but rather the specified file directly. This makes it slightly leaner than child_process.exec. It has the same options.</summary>
+		/// <param name="file">Path to the file to execute.</param>
+		/// <param name="args" optional="true">(Optional) Arguments to pass to the file. Defaults to an empty Array.</param>
+		/// <param name="options" optional="true">(Optional) Additional options. Defaults to: { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null }.</param>
+		/// <param name="callback">Callback function(error, stdout, stderr) that will be called after execution begins.</param>
+		return new ChildProcess();
+	};
+	ChildProcess.prototype.fork = function(modulePath, args, options) {
+		/// <summary>This is a special case of the spawn() functionality for spawning Node processes. In addition to having all the methods in a normal ChildProcess instance, the returned object has a communication channel built-in. The channel is written to with child.send(message, [sendHandle]) and messages are received by a 'message' event on the child.</summary>
+		/// <param name="modulePath">Path of the module to execute.</param>
+		/// <param name="args" optional="true">(Optional) Arguments to pass to the command.</param>
+		/// <param name="options" optional="true">(Optional) Additional options.</param>
+		return new ChildProcess();
+	};
+	ChildProcess.prototype.kill = function(signal) {
+		/// <summary>Send a signal to the child process. If no argument is given, the process will be sent 'SIGTERM'. See signal(7) for a list of available signals.</summary>
+		/// <param name="signal">(Optional) Defaults to 'SIGTERM'.</param>
+	};
+	ChildProcess.prototype.on = function(event, listener) {
+		/// <summary>Adds a listener to the end of the listeners array for the specified event.
+		/// <para>exit(code, signal): This event is emitted after the child process ends. If the process terminated normally, code is the final exit code of the process, otherwise null. If the process terminated due to receipt of a signal, signal is the string name of the signal, otherwise null. See waitpid(2).</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
+		/// </summary>
+		/// <param name="event">Name of the event.</param>
+		/// <param name="listener">Function that is called upon the event.</param>
+		return this;
+	};
+	ChildProcess.prototype.spawn = function(command, args, options) {
+		/// <summary>Launches a new process with the given command, with command line arguments in args.</summary>
+		/// <param name="command">The command to execute.</param>
+		/// <param name="args" optional="true">(Optional) Arguments to pass to the command. Defaults to an empty Array.</param>
+		/// <param name="options" optional="true">(Optional) Additional options, defaults to: {cwd: undefined, env: process.env, setsid: false}.</param>
+		return new ChildProcess();
+	};
+
+	return {
+		fork: function(modulePath, args, options) {
+			/// <summary>This is a special case of the spawn() functionality for spawning Node processes. In addition to having all the methods in a normal ChildProcess instance, the returned object has a communication channel built-in. The channel is written to with child.send(message, [sendHandle]) and messages are received by a 'message' event on the child.</summary>
+			/// <param name="modulePath">Path of the module to execute.</param>
+			/// <param name="args" optional="true">(Optional) Arguments to pass to the command.</param>
+			/// <param name="options" optional="true">(Optional) Additional options.</param>
+			return new ChildProcess();
+		},
+		exec: function(command, options, callback) {
+			/// <summary>Runs a command in a shell and buffers the output.</summary>
+			/// <param name="options" optional="true">(Optional) Additional options. Defaults to: { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null }.</param>
+			/// <param name="callback">Callback function(error, stdout, stderr) that will be called after execution begins.</param>
+			return new ChildProcess();
+		},
+		execFile: function(file, args, options, callback) {
+			/// <summary>This is similar to child_process.exec() except it does not execute a subshell but rather the specified file directly. This makes it slightly leaner than child_process.exec. It has the same options.</summary>
+			/// <param name="file">Path to the file to execute.</param>
+			/// <param name="args" optional="true">(Optional) Arguments to pass to the file. Defaults to an empty Array.</param>
+			/// <param name="options" optional="true">(Optional) Additional options. Defaults to: { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null }.</param>
+			/// <param name="callback">Callback function(error, stdout, stderr) that will be called after execution begins.</param>
+			return new ChildProcess();
+		},
+		spawn: function(command, args, options) {
+			/// <summary>Launches a new process with the given command, with command line arguments in args.</summary>
+			/// <param name="command">The command to execute.</param>
+			/// <param name="args" optional="true">(Optional) Arguments to pass to the command. Defaults to an empty Array.</param>
+			/// <param name="options" optional="true">(Optional) Additional options, defaults to: {cwd: undefined, env: process.env, setsid: false}.</param>
+			return new ChildProcess();
+		}
+	};
+});
+
 // The __Node namespace contains a reference to every class constructor from
 // every Node.js built-in module, except for the ones that are already global
 // (like Buffer). These class references can be used in param XML comment elements
