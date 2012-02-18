@@ -891,10 +891,6 @@ global.vsdoc('net', function() {
 		/// <param name="listener">Function that is called upon the event.</param>
 		return this;
 	};
-	Server.prototype.pause = function(msecs) {
-		/// <summary>Stop accepting connections for the given number of milliseconds (default is one second). This could be useful for throttling new connections against DoS attacks or other oversubscription.</summary>
-		/// <param name="msecs">The number of milliseconds to pause for.</param>
-	};
 
 	return {
 		createServer: function(options, connectionListener) {
