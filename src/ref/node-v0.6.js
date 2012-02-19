@@ -1,4 +1,6 @@
-﻿// ### Global Namespace
+﻿/// <reference path="node-v0.6_constants.js"/>
+
+// ### Global Namespace
 
 var global = (function() {
 
@@ -60,14 +62,11 @@ var module = global.module;
 
 var require = global.require;
 
-// The __Node namespace will contain a reference to every class constructor from
-// every Node.js built-in module. These class references can be used in param
-// XML comment elements as the value of the type attribute in closures or
-// continuation functions. e.g. <param name="connection" type="__Node.Socket"/>
-//
-var __Node = {};
-
 // ### Modules in order of least-dependent-first.
+
+global.vsdoc('constants', function() {
+	return __Node.Constants;
+});
 
 global.vsdoc('events', function() {
 
