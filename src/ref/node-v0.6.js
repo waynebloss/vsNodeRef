@@ -1057,3 +1057,56 @@ global.vsdoc('child_process', function() {
 		}
 	};
 });
+
+global.vsdoc('cluster', function() {
+
+	var util = require('util');
+	var EventEmitter = require('events').EventEmitter;
+
+	function Worker(customEnv) {
+		/// <summary>Create a worker object, there works both for master and worker.</summary>
+		/// <param name="customEnv">Object that holds values to copy to the new process environment.</param>
+		/// <field name="process">Process associated with the worker.</field>
+		/// <field name="uniqueId" type="Number" integer="true">Worker unique id (integer).</field>
+		/// <field name="state" type="String">State of the worker ('none', 'online', 'listening').</field>
+		this.uniqueId = 0;
+		this.state = 'none';
+		this.process = __Node.ChildProcess;
+	}
+	util.inherits(Worker, EventEmitter);
+
+	function Cluster() {
+		/// <summary>A single instance of Node runs in a single thread. To take advantage of multi-core systems the user will sometimes want to launch a cluster of Node processes to handle the load.
+		///     <para>The cluster module allows you to easily create a network of processes that all share server ports.</para>
+		/// </summary>
+		/// <field name="isMaster">Boolean flag to determine if the current process is a master process in a cluster. A process isMaster if process.env.NODE_WORKER_ID is undefined.</field>
+		/// <field name="isWorker">Boolean flag to determine if the current process is a worker process in a cluster. A process isWorker if process.env.NODE_WORKER_ID is defined.</field>
+		/// <field name="settings">Cluster settings object.</field>
+		/// <field name="Worker">The cluster Worker class.</field>
+		/// <field name="worker">The worker object is only used in a worker.</field>
+		/// <field name="workers">The workers array is oly used in the naster.</field>
+		this.isMaster = true;
+		this.isWorker = false;
+		this.settings = {};
+		this.worker = {};
+		this.workers = {};
+		this.Worker = Worker;
+	}
+	util.inherits(Cluster, EventEmitter);
+	Cluster.prototype.fork = function(env) {
+		/// <summary>Spawn a new worker process. This can only be called from the master process.</summary>
+		/// <param name="env" optional="true">(Optional) Object that holds values to copy to the new process environment.</param>
+		return new Worker(env);
+	};
+	Cluster.prototype.on = function(event, listener) {
+		/// <summary>Adds a listener to the end of the listeners array for the specified event.
+		/// <para>death(worker): When any of the workers die the cluster module will emit the 'death' event. This can be used to restart the worker by calling fork() again.</para>
+		/// <para>newListener(event, listener): This event is emitted any time someone adds a new listener.</para>
+		/// </summary>
+		/// <param name="event">Name of the event.</param>
+		/// <param name="listener">Function that is called upon the event.</param>
+		return this;
+	};
+
+	return new Cluster();
+});
