@@ -18,8 +18,7 @@ var global = (function() {
 		/// <field name="process">The process object.</field>
 		this.__dirname = "";
 		this.__filename = "";
-		this.Buffer = function() { };
-		this.console = {};
+		this.cache = {};
 		this.exports = {};
 		this.module = {};
 	}
@@ -54,7 +53,6 @@ var global = (function() {
 var __dirname = global.__dirname;
 var __filename = global.__filename;
 var cache = global.cache;
-var console = global.console;
 var exports = global.exports;
 var module = global.module;
 
@@ -704,6 +702,8 @@ global.vsdoc('buffer', function() {
 		return 0;
 	};
 
+	global.Buffer = Buffer;
+
 	__Node.Buffer = Buffer;
 
 	return {
@@ -713,7 +713,7 @@ global.vsdoc('buffer', function() {
 	};
 });
 
-var Buffer = require('buffer').Buffer;
+var Buffer = global.Buffer;
 
 global.vsdoc('timers', function() {
 
@@ -1108,5 +1108,48 @@ global.vsdoc('cluster', function() {
 		return this;
 	};
 
+	__Node.Cluster = Cluster;
+	__Node.ClusterWorker = Worker;
+
 	return new Cluster();
 });
+
+global.vsdoc('console', function() {
+
+	function Console() {
+		/// <summary>For printing to stdout and stderr. Similar to the console object functions provided by most web browsers, here the output is sent to stdout or stderr.</summary>
+	}
+	Console.prototype.log = function() {
+		/// <summary>Prints to stdout with newline. This function can take multiple arguments in a printf()-like way.</summary>
+	};
+	Console.prototype.info = Console.prototype.log;
+	Console.prototype.warn = function() {
+		/// <summary>Same as console.log but prints to stderr.</summary>
+	};
+	Console.prototype.error = Console.prototype.warn;
+	Console.prototype.dir = function(object) {
+		/// <summary>Uses util.inspect on object and prints resulting string to stderr.</summary>
+		/// <param name="object">The object to inspect.</param>
+	};
+	Console.prototype.time = function(label) {
+		/// <summary>Mark a time.</summary>
+		/// <param name="label">Label for the time.</param>
+	};
+	Console.prototype.timeEnd = function(label) {
+		/// <summary>Finish timer started by console.time, record output.</summary>
+		/// <param name="label">Label for the time.</param>
+	};
+	Console.prototype.trace = function(label) {
+		/// <summary>Print a stack trace to stderr of the current position.</summary>
+		/// <param name="label">Label for the stack trace.</param>
+	};
+	Console.prototype.assert = function(expression) {
+		/// <summary>Same as assert.ok().</summary>
+		/// <param name="expression">The expression to assert.</param>
+	};
+	global.console = new Console();
+	__Node.Console = Console;
+
+	return global.console;
+});
+var console = global.console;
