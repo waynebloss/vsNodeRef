@@ -37,6 +37,7 @@
     <Content Include="gen\node_constants.js" />
     <Content Include="demo_basic.js" />
     <Content Include="demo_continuation.js" />
+    <Content Include="gen\node_lib.js" />
     <Content Include="ref\node-v0.6.js" />
     <Content Include="ref\node-v0.6_constants.js" />
     <Content Include="ref\testMod.js" />
